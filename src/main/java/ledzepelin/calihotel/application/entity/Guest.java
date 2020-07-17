@@ -1,36 +1,35 @@
 package ledzepelin.calihotel.application.entity;
 
+import javafx.scene.control.DatePicker;
+import javafx.scene.layout.HBox;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Guest {
-    private int id;
-    private String fullName;
+    private Integer id;
+    private String lastName;
+    private String name;
     private String sex;
     private String email;
-
-    public int getId() { return id; }
-
-    public void setId(int id) { this.id = id; }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    private Long phone;
+    private LocalDate arrival;
+    private LocalDate departure;
+    private LocalDate checkOut;
+    private Integer days;
+    private String travelAgency;
+    private String roomNo;
+    private Integer price;
+    private String comment;
+    private String paymentMethod;
+    private String vip;
+    private String specials;
+    private String status;
 }

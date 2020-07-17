@@ -1,14 +1,12 @@
 package ledzepelin.calihotel.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import ledzepelin.calihotel.Util.Util;
-import ledzepelin.calihotel.application.entity.Guest;
-import ledzepelin.calihotel.application.model.InvalidDataException;
-import ledzepelin.calihotel.application.service.GuestService;
-import ledzepelin.calihotel.application.validator.GuestValidator;
+import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,69 +14,41 @@ import org.springframework.stereotype.Component;
 @Component
 @FxmlView
 public class MainWindow {
-    private GuestService guestService;
+
+    private final FxWeaver fxWeaver;
 
     @FXML
-    private Button newBtn;
+    private Button bookingBtn;
 
     @FXML
-    private Button editBtn;
+    private Button backBtn;
 
-    @FXML
-    private Button deleteBtn;
-
-    @FXML
-    private TextField fullnameTF;
-
-    @FXML
-    private TextField sexTF;
-
-    @FXML
-    private TextField emailTF;
-
-    @FXML
-    private TextArea listGuestTA;
-
-    private GuestValidator guestValidator = new GuestValidator();
 
     @Autowired
-    public MainWindow(GuestService guestService) {
-        this.guestService = guestService;
+    public MainWindow(FxWeaver fxWeaver) {
+        this.fxWeaver = fxWeaver;
     }
 
-    public void addGuest() {
+    public void bookingModule(ActionEvent actionEvent) {
         try {
-            System.out.println("haha");
-            Guest guest = new Guest();
-            guest.setFullName(fullnameTF.getText());
-            guest.setSex(sexTF.getText());
-            guest.setEmail(emailTF.getText());
-
-            guestValidator.validateGuestInput(guest);
-
-            guestService.addGuest(guest);
-            updateListGuest(guest);
-        } catch (InvalidDataException e) {
-            //handle
-            e.printStackTrace();
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(fxWeaver.loadView(BookingWindow.class));
+            stage.setScene(scene);
         } catch (Exception e) {
             //handle
             e.printStackTrace();
         }
     }
 
-    public void editGuest(){
-        guestService.updateGuest(new Guest());
+    public void signOut(ActionEvent actionEvent) {
+        try {
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(fxWeaver.loadView(Login.class));
+            stage.setScene(scene);
+        } catch (Exception e) {
+            //handle
+            e.printStackTrace();
+        }
     }
-
-    public void deleteGuest(){
-        guestService.deleteGuest("1");
-    }
-
-    private void updateListGuest(Guest guest) {
-        System.out.println(Util.formatReponse(guest));
-        listGuestTA.setText(Util.formatReponse(guest));
-    }
-
 
 }

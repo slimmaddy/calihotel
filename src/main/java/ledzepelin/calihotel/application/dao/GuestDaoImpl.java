@@ -12,7 +12,7 @@ public class GuestDaoImpl implements GuestDao {
         String sql = "INSERT INTO guest(full_name, sex, email) VALUES(?,?,?)";
         try (Connection conn = DBUtil.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, guest.getFullName());
+//            pstmt.setString(1, guest.getFullName());
             pstmt.setString(2, guest.getSex());
             pstmt.setString(3, guest.getEmail());
             pstmt.executeUpdate();

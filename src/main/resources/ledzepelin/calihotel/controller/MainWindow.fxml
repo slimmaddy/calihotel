@@ -10,40 +10,19 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="422.0" prefWidth="624.0" style="-fx-border-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ledzepelin.calihotel.controller.MainWindow">
-   <left>
-      <ScrollPane pannable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <content>
-            <TextArea fx:id="listGuestTA" prefHeight="200.0" prefWidth="200.0" />
-         </content>
-      </ScrollPane>
-   </left>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="422.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #000000;">
+            <Pane prefHeight="322.0" prefWidth="200.0" style="-fx-border-color: #000000;">
                <children>
-                  <Label layoutX="65.0" layoutY="42.0" text="Fullname:" />
-                  <TextField fx:id="fullnameTF" layoutX="199.0" layoutY="37.0" />
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="421.0" style="-fx-background-color: #E95F40;" text="Guest Change" />
+                  <Button fx:id="bookingBtn" layoutX="48.0" layoutY="38.0" mnemonicParsing="false" onAction="#bookingModule" text="Booking" />
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #000000;">
+         </children>
+         <children>
+            <Pane prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: #000000;">
                <children>
-                  <Label layoutX="65.0" layoutY="42.0" text="Sex:" />
-                  <TextField fx:id="sexTF" layoutX="199.0" layoutY="37.0" />
-               </children>
-            </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #000000;">
-               <children>
-                  <Label layoutX="65.0" layoutY="42.0" text="Email:" />
-                  <TextField fx:id="emailTF" layoutX="199.0" layoutY="37.0" />
-               </children>
-            </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #000000;">
-               <children>
-                  <Button fx:id="newBtn" layoutX="48.0" layoutY="38.0" mnemonicParsing="false" onAction="#addGuest" text="New" />
-                  <Button fx:id="editBtn" layoutX="173.0" layoutY="38.0" mnemonicParsing="false" onAction="#editGuest" prefHeight="25.0" prefWidth="47.0" text="Edit" />
-                  <Button fx:id="deleteBtn" layoutX="296.0" layoutY="38.0" mnemonicParsing="false" onAction="#deleteGuest" text="Delete" />
+                  <Button fx:id="backBtn" layoutX="48.0" layoutY="38.0" mnemonicParsing="false" onAction="#signOut" text="Sign Out" />
                </children>
             </Pane>
          </children>
