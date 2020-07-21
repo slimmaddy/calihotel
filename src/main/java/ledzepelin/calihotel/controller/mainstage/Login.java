@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ledzepelin.calihotel.Util.ViewUtil;
@@ -37,21 +38,22 @@ public class Login {
     public Button signinBtn;
 
 
+    @FXML
+    public Label errorLbl;
+
 
     public void signIn(ActionEvent actionEvent) {
-        User user = new User();
-        user.setUserName(userNameTF.getText());
-        user.setPassword(passwordTF.getText());
-
         // TODO: validate input before query
-        boolean success = userService.signIn(user);
+        boolean success = userService.signIn(userNameTF.getText(), passwordTF.getText());
 
         if (success) {
             // TODO: Create an user instance for globally access
             Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
             publisher.publish(new StageEvent(Constants.STATE_LOG_IN, stage));
         } else {
-            ViewUtil.showAlert(Alert.AlertType.ERROR, "Invalid user name or password");
+//            ViewUtil.showAlert(Alert.AlertType.ERROR, "Invalid user name or password");
+            errorLbl.setText("Invalid user name or password");
+            errorLbl.setVisible(true);
         }
     }
 }

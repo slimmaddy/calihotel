@@ -6,28 +6,45 @@ import java.sql.*;
 
 public class UserDaoImpl implements UserDao {
     @Override
-    public boolean signIn(User user) {
-        // TODO: Encrypt password before query.
-        String sql = "SELECT * FROM Users WHERE user_name = ? AND password = ?";
+    public void insert(User user) {
+        String sql = "INSERT INTO Users(full_name, user_name, encrypted_password, email, permission, salt) VALUES(?,?,?,?,?,?)";
         try (Connection conn = DBUtil.connect();
              PreparedStatement pstmt  = conn.prepareStatement(sql);) {
-            pstmt.setString(1,user.getUserName());
-            pstmt.setString(2,user.getPassword());
+            pstmt.setString(1,user.getFullName());
+            pstmt.setString(2,user.getUserName());
+            pstmt.setString(3,user.getEncryptedPassword());
+            pstmt.setString(4,user.getEmail());
+            pstmt.setInt(5,user.getPermission());
+            pstmt.setString(6,user.getSalt());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public User getUserByUserName(String userName) {
+        String sql = "SELECT * FROM Users WHERE user_name = ?";
+        try (Connection conn = DBUtil.connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql);) {
+            pstmt.setString(1,userName);
             ResultSet rs  = pstmt.executeQuery();
 
-            if (!rs.next()) {
-                return false;
-            } else {
-                return true;
+            if (rs.next()) {
+                String encrypted_password = rs.getString("encrypted_password");
+                System.out.println(encrypted_password);
+                int permission = rs.getInt("permission");
+                String salt = rs.getString("salt");
+                User user = new User();
+                user.setUserName(userName);
+                user.setEncryptedPassword(encrypted_password);
+                user.setPermission(permission);
+                user.setSalt(salt);
+                return user;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return false;
-    }
-
-    @Override
-    public void signUp(User user) {
-
+        return null;
     }
 }
