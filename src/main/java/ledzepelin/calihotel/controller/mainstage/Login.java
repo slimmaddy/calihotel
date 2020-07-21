@@ -1,31 +1,31 @@
-package ledzepelin.calihotel.controller;
+package ledzepelin.calihotel.controller.mainstage;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ledzepelin.calihotel.application.entity.Guest;
+import ledzepelin.calihotel.Util.ViewUtil;
 import ledzepelin.calihotel.application.entity.User;
+import ledzepelin.calihotel.application.event.model.StageEvent;
+import ledzepelin.calihotel.application.event.publisher.StageEventPublisher;
 import ledzepelin.calihotel.application.service.UserService;
-import net.rgielen.fxweaver.core.FxWeaver;
+import ledzepelin.calihotel.config.Constants;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 @Component
 @FxmlView
 public class Login {
 
-    private final FxWeaver fxWeaver;
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    StageEventPublisher publisher;
 
     @FXML
     public TextField userNameTF;
@@ -36,11 +36,7 @@ public class Login {
     @FXML
     public Button signinBtn;
 
-    @Autowired
-    public Login(FxWeaver fxWeaver, UserService userService){
-        this.fxWeaver = fxWeaver;
-        this.userService = userService;
-    }
+
 
     public void signIn(ActionEvent actionEvent) {
         User user = new User();
@@ -52,15 +48,10 @@ public class Login {
 
         if (success) {
             // TODO: Create an user instance for globally access
-            Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(fxWeaver.loadView(MainWindow.class));
-            stage.setScene(scene);
+            Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            publisher.publish(new StageEvent(Constants.STATE_LOG_IN, stage));
         } else {
-            // Show prompt
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Invalid user name or password");
-            alert.show();
-
+            ViewUtil.showAlert(Alert.AlertType.ERROR, "Invalid user name or password");
         }
     }
 }

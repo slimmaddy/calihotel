@@ -1,4 +1,4 @@
-package ledzepelin.calihotel.controller;
+package ledzepelin.calihotel.controller.mainscene;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,9 +19,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @FxmlView
-public class BookingWindow {
+public class BookingWindow{
+    @Autowired
     private GuestService guestService;
-    private FxWeaver fxWeaver;
 
     @FXML
     private TextField lastNameTF;
@@ -89,12 +89,6 @@ public class BookingWindow {
 
     private GuestValidator guestValidator = new GuestValidator();
 
-    @Autowired
-    public BookingWindow(FxWeaver fxWeaver, GuestService guestService) {
-        this.fxWeaver = fxWeaver;
-        this.guestService = guestService;
-    }
-
     public void addGuest() {
         try {
             Guest guest = new Guest();
@@ -143,15 +137,4 @@ public class BookingWindow {
         listGuestTA.setText(Util.formatReponse(guest));
     }
 
-
-    public void back(ActionEvent actionEvent) {
-        try {
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(fxWeaver.loadView(MainWindow.class));
-            stage.setScene(scene);
-        } catch (Exception e) {
-            //handle
-            e.printStackTrace();
-        }
-    }
 }

@@ -12,6 +12,7 @@ public class GuestValidator {
 //        return true;
 //    }
 
+    /// ??? ai code day. k hien alert o day nhe. tra ket qua hoac loi~ ra ngoai controller
     public void warning(String value){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Error!!");
