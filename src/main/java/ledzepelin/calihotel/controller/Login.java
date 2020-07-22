@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ledzepelin.calihotel.application.entity.Guest;
@@ -36,6 +37,9 @@ public class Login {
     @FXML
     public Button signinBtn;
 
+    @FXML
+    public Label errorLbl;
+
     @Autowired
     public Login(FxWeaver fxWeaver, UserService userService){
         this.fxWeaver = fxWeaver;
@@ -43,12 +47,8 @@ public class Login {
     }
 
     public void signIn(ActionEvent actionEvent) {
-        User user = new User();
-        user.setUserName(userNameTF.getText());
-        user.setPassword(passwordTF.getText());
-
         // TODO: validate input before query
-        boolean success = userService.signIn(user);
+        boolean success = userService.signIn(userNameTF.getText(), passwordTF.getText());
 
         if (success) {
             // TODO: Create an user instance for globally access
@@ -56,11 +56,8 @@ public class Login {
             Scene scene = new Scene(fxWeaver.loadView(MainWindow.class));
             stage.setScene(scene);
         } else {
-            // Show prompt
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Invalid user name or password");
-            alert.show();
-
+            errorLbl.setText("Invalid user name or password");
+            errorLbl.setVisible(true);
         }
     }
 }

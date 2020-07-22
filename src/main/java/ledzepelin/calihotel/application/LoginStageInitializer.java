@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ledzepelin.calihotel.controller.Login;
 import ledzepelin.calihotel.controller.MainWindow;
+import ledzepelin.calihotel.controller.SignUp;
 import net.rgielen.fxweaver.core.FxWeaver;
 
 import org.springframework.beans.factory.annotation.Autowired;
