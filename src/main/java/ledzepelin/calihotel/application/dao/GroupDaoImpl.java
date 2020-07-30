@@ -16,7 +16,7 @@ public class GroupDaoImpl implements GroupDao {
 			pstmt.setInt(1, group.getGroupId());
 			pstmt.setString(2, group.getGroupName());
 			pstmt.setString(3, group.getTravelAgency());
-			pstmt.setInt(4, group.getBooker());
+			pstmt.setString(4, group.getBooker());
 			pstmt.setBigDecimal(5, group.getPrice());
 
 			pstmt.setString(6, group.getPaymentMethod());

@@ -16,7 +16,7 @@ public class Group {
 	private Integer groupId;
 	private String groupName;
 	private String travelAgency;
-	private Integer booker;
+	private String booker;
 	private BigDecimal price;
 	private String paymentMethod;
 	private String comment;

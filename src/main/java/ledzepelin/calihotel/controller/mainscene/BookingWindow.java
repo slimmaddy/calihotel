@@ -133,8 +133,8 @@ public class BookingWindow{
     }
 
     private void updateListGuest(Guest guest) {
-        System.out.println(Util.formatReponse(guest));
-        listGuestTA.setText(Util.formatReponse(guest));
+        System.out.println(Util.guestFormatReponse(guest));
+        listGuestTA.setText(Util.guestFormatReponse(guest));
     }
 
 }

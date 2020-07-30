@@ -19,6 +19,12 @@ public class MainWindow{
     @FXML
     private Button bookingBtn;
 
+    @FXML
+    private Button guestBtn;
+
+    @FXML
+    private Button groupBtn;
+
     @Autowired
     SceneEventPublisher publisher;
 
@@ -28,8 +34,8 @@ public class MainWindow{
      */
     @FXML
     public void initialize() {
-        bookingBtn.setOnMouseClicked(mouseEvent -> {
-            publisher.publish(new SceneEvent(Constants.STATE_BOOKING));
-        });
+        bookingBtn.setOnMouseClicked(mouseEvent -> publisher.publish(new SceneEvent(Constants.STATE_BOOKING)));
+        guestBtn.setOnMouseClicked(mouseEvent -> publisher.publish(new SceneEvent(Constants.STATE_GUEST)));
+        groupBtn.setOnMouseClicked(mouseEvent -> publisher.publish(new SceneEvent(Constants.STATE_GROUP)));
     }
 }
